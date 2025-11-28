@@ -1,0 +1,38 @@
+// ดึงค่าอุณหภูมิจาก sensor
+var data = msg.payload;
+var out = {};
+if (((data[5] << 8) + data[6]) >= 65536) { 
+    out["temp"] = -(((data[5] << 8) + data[6]) - 65536) / 10;
+} else {
+    out["temp"] = (((data[5] << 8) + data[6])) / 10;
+}
+msg.payload = out;
+
+// ตรวจสอบว่ามีค่าใน context หรือไม่
+var temperatureArray = context.get('temperatureArray') || [];
+
+// ดึงค่าอุณหภูมิจาก sensor
+var currentTemperature = out["temp"];
+
+// เปลี่ยนค่าที่ได้จาก sensor เพื่อเก็บใหม่
+temperatureArray.push(currentTemperature);
+
+// ให้ array มีขนาดไม่เกิน 3 ค่า
+if (temperatureArray.length > 3) {
+    temperatureArray.shift();
+}
+
+// คำนวณค่าเฉลี่ย
+var averageTemperature = temperatureArray.reduce((acc, val) => acc + val, 0) / temperatureArray.length;
+
+// เปรียบเทียบค่าเฉลี่ยกับค่าปัจจุบัน
+if (currentTemperature > averageTemperature * 1.6) {
+    msg.payload = "High";
+} else {
+    msg.payload = "Normal";
+}
+
+// อัพเดต array ใน context
+context.set('temperatureArray', temperatureArray);
+
+return msg;

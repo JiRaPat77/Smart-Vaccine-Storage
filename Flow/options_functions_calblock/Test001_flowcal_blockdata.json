@@ -1,0 +1,244 @@
+[
+    {
+        "id": "fe45a1bdf7cd54a6",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "068ee95113bbf285",
+        "type": "debug",
+        "z": "fe45a1bdf7cd54a6",
+        "name": "check_calresult_temp1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload ",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "97b107bb21ab5787",
+        "type": "function",
+        "z": "fe45a1bdf7cd54a6",
+        "name": "cal_check_blockdataTemp2",
+        "func": "var data = msg.payload;\nvar out = {};\nif (((data[5] << 8) + data[6]) >= 65536) { \n    out[\"temp\"] = -(((data[5] << 8) + data[6]) - 65536) / 10;\n} else {\n    out[\"temp\"] = (((data[5] << 8) + data[6])) / 10;\n}\nmsg.payload = out;\n\nvar temperatureArray = context.get('temperatureArray') || [];\n\n\nvar currentTemperature = out[\"temp\"];\n\n\ntemperatureArray.push(currentTemperature);\n\n// ให้ array มีขนาดไม่เกิน 3 ค่า\nif (temperatureArray.length > 3) {\n    temperatureArray.shift();\n}\n\n// คำนวณค่าเฉลี่ย\nvar averageTemperature = temperatureArray.reduce((acc, val) => acc + val, 0) / temperatureArray.length;\n\n\nif (currentTemperature > averageTemperature * 1.6) {\n    msg.payload = \"Temp_2 Hight\";\n} else {\n    msg.payload = \"Temp_2 Normal\";\n}\n\n// อัพเดต array ใน context\ncontext.set('temperatureArray', temperatureArray);\n\nvar csvData = `${currentTemperature},${temperatureArray},${averageTemperature}\\n`;\nmsg.payload = csvData;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 280,
+        "wires": [
+            [
+                "379b61ac40aaaf45",
+                "09452e470769a9f1"
+            ]
+        ]
+    },
+    {
+        "id": "d7fee3209f23dbb7",
+        "type": "function",
+        "z": "fe45a1bdf7cd54a6",
+        "name": "cal_check_blockdataTemp3",
+        "func": "var data = msg.payload;\nvar out = {};\nif (((data[5] << 8) + data[6]) >= 65536) { \n    out[\"temp\"] = -(((data[5] << 8) + data[6]) - 65536) / 10;\n} else {\n    out[\"temp\"] = (((data[5] << 8) + data[6])) / 10;\n}\nmsg.payload = out;\n\nvar temperatureArray = context.get('temperatureArray') || [];\n\n\nvar currentTemperature = out[\"temp\"];\n\n\ntemperatureArray.push(currentTemperature);\n\n// ให้ array มีขนาดไม่เกิน 3 ค่า\nif (temperatureArray.length > 3) {\n    temperatureArray.shift();\n}\n\n// คำนวณค่าเฉลี่ย\nvar averageTemperature = temperatureArray.reduce((acc, val) => acc + val, 0) / temperatureArray.length;\n\n\nif (currentTemperature > averageTemperature * 1.6) {\n    msg.payload = \"Temp_3 Hight\";\n} else {\n    msg.payload = \"Temp_3 Normal\";\n}\n\n// อัพเดต array ใน context\ncontext.set('temperatureArray', temperatureArray);\n\nvar csvData = `${currentTemperature},${temperatureArray},${averageTemperature}\\n`;\nmsg.payload = csvData;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 380,
+        "wires": [
+            [
+                "8287087edc79cebc",
+                "dd1a348bc01532e8"
+            ]
+        ]
+    },
+    {
+        "id": "379b61ac40aaaf45",
+        "type": "debug",
+        "z": "fe45a1bdf7cd54a6",
+        "name": "check_calresult_temp2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "8287087edc79cebc",
+        "type": "debug",
+        "z": "fe45a1bdf7cd54a6",
+        "name": "check_calresult_temp2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "8ac17cbccda55cbf",
+        "type": "file",
+        "z": "fe45a1bdf7cd54a6",
+        "name": "",
+        "filename": "/home/pi/Documents/DataRecord_testcal/Temp_1.csv",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 1040,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "854ec5556fa5b509",
+        "type": "function",
+        "z": "fe45a1bdf7cd54a6",
+        "name": "cal_check_blockdataTemp1",
+        "func": "var data = msg.payload;\nvar out = {};\nif (((data[5] << 8) + data[6]) >= 65536) { \n    out[\"temp\"] = -(((data[5] << 8) + data[6]) - 65536) / 10;\n} else {\n    out[\"temp\"] = (((data[5] << 8) + data[6])) / 10;\n}\nmsg.payload = out;\n\nvar temperatureArray = context.get('temperatureArray') || [];\n\n\nvar currentTemperature = out[\"temp\"];\n\n\ntemperatureArray.push(currentTemperature);\n\n// ให้ array มีขนาดไม่เกิน 3 ค่า\nif (temperatureArray.length > 3) {\n    temperatureArray.shift();\n}\n\n// คำนวณค่าเฉลี่ย\nvar averageTemperature = temperatureArray.reduce((acc, val) => acc + val, 0) / temperatureArray.length;\n\n\nif (currentTemperature > averageTemperature * 1.6) {\n    msg.payload = \"Temp_1 Hight\";\n} else {\n    msg.payload = \"Temp_1 Normal\";\n}\n\n// อัพเดต array ใน context\ncontext.set('temperatureArray', temperatureArray);\n\nvar csvData = `${currentTemperature},${temperatureArray},${averageTemperature}\\n`;\nmsg.payload = csvData;\n\nreturn msg;\n\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 180,
+        "wires": [
+            [
+                "068ee95113bbf285",
+                "b9d6aefc6119ad47"
+            ]
+        ]
+    },
+    {
+        "id": "b9d6aefc6119ad47",
+        "type": "csv",
+        "z": "fe45a1bdf7cd54a6",
+        "name": "",
+        "sep": ",",
+        "hdrin": true,
+        "hdrout": "once",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "currentTemperature,temperatureArray,averageTemperature}",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": "",
+        "include_null_values": "",
+        "x": 730,
+        "y": 220,
+        "wires": [
+            [
+                "8ac17cbccda55cbf"
+            ]
+        ]
+    },
+    {
+        "id": "09452e470769a9f1",
+        "type": "csv",
+        "z": "fe45a1bdf7cd54a6",
+        "name": "",
+        "sep": ",",
+        "hdrin": true,
+        "hdrout": "once",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "currentTemperature,temperatureArray,averageTemperature}",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": "",
+        "include_null_values": "",
+        "x": 730,
+        "y": 320,
+        "wires": [
+            [
+                "562e2c39909c437e"
+            ]
+        ]
+    },
+    {
+        "id": "562e2c39909c437e",
+        "type": "file",
+        "z": "fe45a1bdf7cd54a6",
+        "name": "",
+        "filename": "/home/pi/Documents/DataRecord_testcal/Temp_2.csv",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 1040,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dd1a348bc01532e8",
+        "type": "csv",
+        "z": "fe45a1bdf7cd54a6",
+        "name": "",
+        "sep": ",",
+        "hdrin": true,
+        "hdrout": "once",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "currentTemperature,temperatureArray,averageTemperature}",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": "",
+        "include_null_values": "",
+        "x": 730,
+        "y": 440,
+        "wires": [
+            [
+                "58afcf8d588de0f3"
+            ]
+        ]
+    },
+    {
+        "id": "58afcf8d588de0f3",
+        "type": "file",
+        "z": "fe45a1bdf7cd54a6",
+        "name": "",
+        "filename": "/home/pi/Documents/DataRecord_testcal/Temp_3.csv",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 1040,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    }
+]

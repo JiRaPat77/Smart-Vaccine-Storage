@@ -1,0 +1,64 @@
+[
+    {
+        "id": "5e212840089375d4",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "64e4263df8dc8f8e",
+        "type": "function",
+        "z": "5e212840089375d4",
+        "name": "cal_check_blockdataTemp1-001",
+        "func": "var data=msg.payload;\nvar out={};\nif (((data[5]<< 8) + data[6]) >= 65536)\n{ \nout[\"temp\"]= -(((data[5]<< 8) + data[6]) - 65536) /10;\n}\nelse\n{\nout[\"temp\"]= (((data[5]<< 8) + data[6]))/10;\n}\nmsg.payload=out;\n\nvar temperatureArray = context.get('temperatureArray') || [];\n\n\nvar currentTemperature = out[\"temp\"];\n\n\ntemperatureArray.push(currentTemperature);\n\n// ให้ array มีขนาดไม่เกิน 3 ค่า\nif (temperatureArray.length > 3) {\n    temperatureArray.shift();\n}\n\n// คำนวณค่าเฉลี่ย\n//var averageTemperature = temperatureArray.reduce((acc, val) => acc + val, 0) / temperatureArray.length;\n\n\n//if (currentTemperature > averageTemperature * 1.6) {\n//    msg.payload = \"Temp_1 Hight\";\n//} else {\n//    msg.payload = \"Temp_1 Normal\";\n//}\n\n// อัพเดต array ใน context\ncontext.set('temperatureArray', temperatureArray);\n\n//var csvData = `${currentTemperature},${temperatureArray},${averageTemperature}\\n`;\nvar csvData = temperatureArray.map(val => val.toFixed(2)).join(',') + '\\n';\n\nmsg.payload = csvData;\n\nreturn msg;\n\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ed14d5dda3eb334f",
+        "type": "function",
+        "z": "5e212840089375d4",
+        "name": "cal_check_blockdataTemp2-001",
+        "func": "var data=msg.payload;\nvar out={};\nif (((data[5]<< 8) + data[6]) >= 65536)\n{ \nout[\"temp\"]= -(((data[5]<< 8) + data[6]) - 65536) /10;\n}\nelse\n{\nout[\"temp\"]= (((data[5]<< 8) + data[6]))/10;\n}\nmsg.payload=out;\n\nvar temperatureArray = context.get('temperatureArray') || [];\n\n\nvar currentTemperature = out[\"temp\"];\n\n\ntemperatureArray.push(currentTemperature);\n\n// ให้ array มีขนาดไม่เกิน 3 ค่า\nif (temperatureArray.length > 3) {\n    temperatureArray.shift();\n}\n\n// คำนวณค่าเฉลี่ย\n//var averageTemperature = temperatureArray.reduce((acc, val) => acc + val, 0) / temperatureArray.length;\n\n\n//if (currentTemperature > averageTemperature * 1.6) {\n//    msg.payload = \"Temp_1 Hight\";\n//} else {\n//    msg.payload = \"Temp_1 Normal\";\n//}\n\n// อัพเดต array ใน context\ncontext.set('temperatureArray', temperatureArray);\n\n//var csvData = `${currentTemperature},${temperatureArray},${averageTemperature}\\n`;\nvar csvData = temperatureArray.map(val => val.toFixed(2)).join(',') + '\\n';\nmsg.payload = csvData;\n\nreturn msg;\n\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c453e49e1bd9cafc",
+        "type": "function",
+        "z": "5e212840089375d4",
+        "name": "cal_check_blockdataTemp3-001",
+        "func": "var data=msg.payload;\nvar out={};\nif (((data[5]<< 8) + data[6]) >= 65536)\n{ \nout[\"temp\"]= -(((data[5]<< 8) + data[6]) - 65536) /10;\n}\nelse\n{\nout[\"temp\"]= (((data[5]<< 8) + data[6]))/10;\n}\nmsg.payload=out;\n\nvar temperatureArray = context.get('temperatureArray') || [];\n\n\nvar currentTemperature = out[\"temp\"];\n\n\ntemperatureArray.push(currentTemperature);\n\n// ให้ array มีขนาดไม่เกิน 3 ค่า\nif (temperatureArray.length > 3) {\n    temperatureArray.shift();\n}\n\n// คำนวณค่าเฉลี่ย\n//var averageTemperature = temperatureArray.reduce((acc, val) => acc + val, 0) / temperatureArray.length;\n\n\n//if (currentTemperature > averageTemperature * 1.6) {\n//    msg.payload = \"Temp_1 Hight\";\n//} else {\n//    msg.payload = \"Temp_1 Normal\";\n//}\n\n// อัพเดต array ใน context\ncontext.set('temperatureArray', temperatureArray);\n\n//var csvData = `${currentTemperature},${temperatureArray},${averageTemperature}\\n`;\nvar csvData = temperatureArray.map(val => val.toFixed(2)).join(',') + '\\n';\nmsg.payload = csvData;\n\nreturn msg;\n\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    }
+]

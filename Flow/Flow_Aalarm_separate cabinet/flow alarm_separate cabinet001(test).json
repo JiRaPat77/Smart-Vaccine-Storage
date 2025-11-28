@@ -1,0 +1,1271 @@
+[
+    {
+        "id": "df56496c32daa26f",
+        "type": "function",
+        "z": "a7bcc23fa1082baf",
+        "name": "function 93",
+        "func": "// สร้างตัวแปร data และกำหนดค่าใน msg.payload ให้กับ data\nvar data = msg.payload;\n\n// ตรวจสอบว่า data มี property \"data\" และ \"sensors\" หรือไม่\nif (data && data.data && data.data.sensors) {\n    // ดึงข้อมูล \"alarmEnabled\" ทั้งหมด\n    var alarmEnabledData = data.data.sensors.map(sensor => {\n        return {\n            \"sensorId\": sensor.sensorId,\n            \"alarmEnabled\": sensor.alarmEnabled\n        };\n    });\n\n    // กำหนดค่าใน msg.payload\n    msg.payload = alarmEnabledData;\n} else {\n    // ถ้าข้อมูลไม่ถูกต้อง กำหนด msg.payload เป็นข้อความแจ้งเตือน\n    msg.payload = \"Invalid data format\";\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 2840,
+        "wires": [
+            [
+                "0d11b2633c277ae0"
+            ]
+        ]
+    },
+    {
+        "id": "4128e20d7305f6dd",
+        "type": "join",
+        "z": "a7bcc23fa1082baf",
+        "name": "",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "5",
+        "count": "6",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "num",
+        "reduceFixup": "",
+        "x": 1610,
+        "y": 2240,
+        "wires": [
+            [
+                "fa3709cb908bae28",
+                "7d77621c1095783a"
+            ]
+        ]
+    },
+    {
+        "id": "d39a719b7612841a",
+        "type": "file in",
+        "z": "a7bcc23fa1082baf",
+        "name": "",
+        "filename": "E:\\Weaverbase\\Project\\btg_SmartFarm_supan(0164)\\Test_Read file_Alarm\\alarm_en",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 920,
+        "y": 2240,
+        "wires": [
+            [
+                "57c71fa60cd74c1f",
+                "5c7722620d7b4e8d"
+            ]
+        ]
+    },
+    {
+        "id": "87279526f1d9cef7",
+        "type": "file in",
+        "z": "a7bcc23fa1082baf",
+        "name": "",
+        "filename": "E:\\Weaverbase\\Project\\btg_SmartFarm_supan(0164)\\Test_Read file_Alarm\\temp_l",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 910,
+        "y": 2320,
+        "wires": [
+            [
+                "93e84b1e78d23fcb",
+                "ae2f490a4be11b9c"
+            ]
+        ]
+    },
+    {
+        "id": "57c71fa60cd74c1f",
+        "type": "file in",
+        "z": "a7bcc23fa1082baf",
+        "name": "",
+        "filename": "E:\\Weaverbase\\Project\\btg_SmartFarm_supan(0164)\\Test_Read file_Alarm\\temp_h",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 910,
+        "y": 2280,
+        "wires": [
+            [
+                "87279526f1d9cef7",
+                "2f44d0b6a6f99d66"
+            ]
+        ]
+    },
+    {
+        "id": "93e84b1e78d23fcb",
+        "type": "file in",
+        "z": "a7bcc23fa1082baf",
+        "name": "",
+        "filename": "E:\\Weaverbase\\Project\\btg_SmartFarm_supan(0164)\\Test_Read file_Alarm\\temp_1",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 910,
+        "y": 2360,
+        "wires": [
+            [
+                "cbf2f6c406e282ad",
+                "14ccb5344842c371"
+            ]
+        ]
+    },
+    {
+        "id": "cbf2f6c406e282ad",
+        "type": "file in",
+        "z": "a7bcc23fa1082baf",
+        "name": "",
+        "filename": "E:\\Weaverbase\\Project\\btg_SmartFarm_supan(0164)\\Test_Read file_Alarm\\temp_2",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 910,
+        "y": 2400,
+        "wires": [
+            [
+                "a77d43b23158d499",
+                "9ba445a83ac8225c"
+            ]
+        ]
+    },
+    {
+        "id": "a77d43b23158d499",
+        "type": "file in",
+        "z": "a7bcc23fa1082baf",
+        "name": "",
+        "filename": "E:\\Weaverbase\\Project\\btg_SmartFarm_supan(0164)\\Test_Read file_Alarm\\temp_3",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 910,
+        "y": 2440,
+        "wires": [
+            [
+                "4b762514254fd029"
+            ]
+        ]
+    },
+    {
+        "id": "616d9758ef6d17e9",
+        "type": "change",
+        "z": "a7bcc23fa1082baf",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.alarm",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2520,
+        "y": 2240,
+        "wires": [
+            [
+                "1a675f971ae3947f",
+                "b8b2e2661e241e50"
+            ]
+        ]
+    },
+    {
+        "id": "1a675f971ae3947f",
+        "type": "switch",
+        "z": "a7bcc23fa1082baf",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 2710,
+        "y": 2240,
+        "wires": [
+            [
+                "908adf0b0a8f1cf5"
+            ],
+            [
+                "6c811265dbf15b3e"
+            ],
+            [
+                "432688867227dc8b"
+            ]
+        ]
+    },
+    {
+        "id": "908adf0b0a8f1cf5",
+        "type": "change",
+        "z": "a7bcc23fa1082baf",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2900,
+        "y": 2160,
+        "wires": [
+            [
+                "4196d751b5742ca4"
+            ]
+        ]
+    },
+    {
+        "id": "6c811265dbf15b3e",
+        "type": "change",
+        "z": "a7bcc23fa1082baf",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "1",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2900,
+        "y": 2240,
+        "wires": [
+            [
+                "4196d751b5742ca4",
+                "463c6f1362984e12",
+                "dda2158156aa8d49",
+                "fdd8f5540ac28ef7"
+            ]
+        ]
+    },
+    {
+        "id": "58fe598737d57bda",
+        "type": "debug",
+        "z": "a7bcc23fa1082baf",
+        "name": "F-alarm",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1820,
+        "y": 2200,
+        "wires": []
+    },
+    {
+        "id": "b8b2e2661e241e50",
+        "type": "debug",
+        "z": "a7bcc23fa1082baf",
+        "name": "Result alarm",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2530,
+        "y": 2200,
+        "wires": []
+    },
+    {
+        "id": "30d4ce186a55f7bb",
+        "type": "debug",
+        "z": "a7bcc23fa1082baf",
+        "name": "debug 154",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1640,
+        "y": 2440,
+        "wires": []
+    },
+    {
+        "id": "9a09229fe882c2ef",
+        "type": "debug",
+        "z": "a7bcc23fa1082baf",
+        "name": "debug 155",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1640,
+        "y": 2400,
+        "wires": []
+    },
+    {
+        "id": "67b8556cc82fd6ec",
+        "type": "debug",
+        "z": "a7bcc23fa1082baf",
+        "name": "debug 156",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1640,
+        "y": 2360,
+        "wires": []
+    },
+    {
+        "id": "4b1884463d830102",
+        "type": "debug",
+        "z": "a7bcc23fa1082baf",
+        "name": "debug 157",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1640,
+        "y": 2320,
+        "wires": []
+    },
+    {
+        "id": "f5df02fa8be39f34",
+        "type": "debug",
+        "z": "a7bcc23fa1082baf",
+        "name": "debug 158",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1640,
+        "y": 2280,
+        "wires": []
+    },
+    {
+        "id": "4b762514254fd029",
+        "type": "function",
+        "z": "a7bcc23fa1082baf",
+        "name": "function 80",
+        "func": "var jsonData = JSON.parse(msg.payload);\nvar tempValue = parseFloat(jsonData.temp);\n\nif (!isNaN(tempValue)) {\n    msg.payload = tempValue;\n    return msg;\n} else {\n    return null;\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1390,
+        "y": 2440,
+        "wires": [
+            [
+                "4128e20d7305f6dd",
+                "30d4ce186a55f7bb"
+            ]
+        ]
+    },
+    {
+        "id": "eefe97985aceba6c",
+        "type": "comment",
+        "z": "a7bcc23fa1082baf",
+        "name": "Test alarm loop แยกตู้",
+        "info": "",
+        "x": 300,
+        "y": 2120,
+        "wires": []
+    },
+    {
+        "id": "9ba445a83ac8225c",
+        "type": "function",
+        "z": "a7bcc23fa1082baf",
+        "name": "function 81",
+        "func": "var jsonData = JSON.parse(msg.payload);\nvar tempValue = parseFloat(jsonData.temp);\n\nif (!isNaN(tempValue)) {\n    msg.payload = tempValue;\n    return msg;\n} else {\n    return null;\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1390,
+        "y": 2400,
+        "wires": [
+            [
+                "4128e20d7305f6dd",
+                "9a09229fe882c2ef"
+            ]
+        ]
+    },
+    {
+        "id": "14ccb5344842c371",
+        "type": "function",
+        "z": "a7bcc23fa1082baf",
+        "name": "function 82",
+        "func": "var jsonData = JSON.parse(msg.payload);\nvar tempValue = parseFloat(jsonData.temp);\n\nif (!isNaN(tempValue)) {\n    msg.payload = tempValue;\n    return msg;\n} else {\n    return null;\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1390,
+        "y": 2360,
+        "wires": [
+            [
+                "4128e20d7305f6dd",
+                "67b8556cc82fd6ec"
+            ]
+        ]
+    },
+    {
+        "id": "4d929d79421caa95",
+        "type": "inject",
+        "z": "a7bcc23fa1082baf",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 260,
+        "y": 2240,
+        "wires": [
+            [
+                "d39a719b7612841a",
+                "5073d3c21c670adc",
+                "59b991a89c20d27b"
+            ]
+        ]
+    },
+    {
+        "id": "fa3709cb908bae28",
+        "type": "debug",
+        "z": "a7bcc23fa1082baf",
+        "name": "debug 159",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1610,
+        "y": 2200,
+        "wires": []
+    },
+    {
+        "id": "ae2f490a4be11b9c",
+        "type": "function",
+        "z": "a7bcc23fa1082baf",
+        "name": "function 83",
+        "func": "// ใน \"Function\" Node\nvar fileData = msg.payload.toString(); // แปลงข้อมูลจาก Buffer เป็น string\nvar numericValue = parseFloat(fileData);\n\nif (!isNaN(numericValue)) {\n    // numericValue เป็นตัวเลขที่ได้\n    msg.payload = numericValue;\n    return msg;\n} else {\n    return null; // หรือ return msg; หรือ return; ตามความเหมาะสม\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1390,
+        "y": 2320,
+        "wires": [
+            [
+                "4128e20d7305f6dd",
+                "4b1884463d830102"
+            ]
+        ]
+    },
+    {
+        "id": "2f44d0b6a6f99d66",
+        "type": "function",
+        "z": "a7bcc23fa1082baf",
+        "name": "function 84",
+        "func": "var fileData = msg.payload.toString(); // แปลงข้อมูลจาก Buffer เป็น string\nvar numericValue = parseFloat(fileData);\n\nif (!isNaN(numericValue)) {\n    msg.payload = numericValue;\n    return msg;\n} else {\n    return null; \n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1390,
+        "y": 2280,
+        "wires": [
+            [
+                "f5df02fa8be39f34",
+                "4128e20d7305f6dd"
+            ]
+        ]
+    },
+    {
+        "id": "7d77621c1095783a",
+        "type": "function",
+        "z": "a7bcc23fa1082baf",
+        "name": "function 85",
+        "func": "var out = {};\n\nvar condition1 = msg.payload[3] >= msg.payload[1] || msg.payload[4] >= msg.payload[1] || msg.payload[5] >= msg.payload[1];\nvar condition2 = msg.payload[3] < msg.payload[2] || msg.payload[4] < msg.payload[2] || msg.payload[5] < msg.payload[2];\n\nif (condition1) {\n    out[\"alarm\"] = msg.payload[0] === 1 ? \"0\" : '1';\n} else if (condition2) {\n    out[\"alarm\"] = msg.payload[0] === 1 ? '0' : '1';\n} else {\n    out[\"alarm\"] = \"1\";\n}\n\nmsg.payload = out;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1810,
+        "y": 2240,
+        "wires": [
+            [
+                "58fe598737d57bda",
+                "540be7ee55b255b3"
+            ]
+        ]
+    },
+    {
+        "id": "1a7715b285eba511",
+        "type": "debug",
+        "z": "a7bcc23fa1082baf",
+        "name": "debug 160",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1380,
+        "y": 2160,
+        "wires": []
+    },
+    {
+        "id": "5589af30e8fd2e22",
+        "type": "function",
+        "z": "a7bcc23fa1082baf",
+        "name": "function 86",
+        "func": "var fileData = msg.payload.toString(); // แปลงข้อมูลจาก Buffer เป็น string\nvar numericValue = parseFloat(fileData);\n\nif (!isNaN(numericValue)) {\n    msg.payload = numericValue;\n    return msg;\n} else {\n    return null; \n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1370,
+        "y": 2200,
+        "wires": [
+            [
+                "1a7715b285eba511",
+                "4128e20d7305f6dd"
+            ]
+        ]
+    },
+    {
+        "id": "5c7722620d7b4e8d",
+        "type": "change",
+        "z": "a7bcc23fa1082baf",
+        "name": "",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "true",
+                "fromt": "str",
+                "to": "1",
+                "tot": "num"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "false",
+                "fromt": "str",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1380,
+        "y": 2240,
+        "wires": [
+            [
+                "5589af30e8fd2e22"
+            ]
+        ]
+    },
+    {
+        "id": "d766a8f75efb9536",
+        "type": "inject",
+        "z": "a7bcc23fa1082baf",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 2680,
+        "y": 2320,
+        "wires": [
+            [
+                "6c811265dbf15b3e"
+            ]
+        ]
+    },
+    {
+        "id": "5073d3c21c670adc",
+        "type": "debug",
+        "z": "a7bcc23fa1082baf",
+        "name": "debug 163",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 430,
+        "y": 2200,
+        "wires": []
+    },
+    {
+        "id": "4196d751b5742ca4",
+        "type": "trigger",
+        "z": "a7bcc23fa1082baf",
+        "name": "",
+        "op1": "",
+        "op2": "0",
+        "op1type": "nul",
+        "op2type": "str",
+        "duration": "5",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "1",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 3100,
+        "y": 2060,
+        "wires": [
+            [
+                "3fd2a907c0a30df8",
+                "b6d5abf31b857ae6"
+            ]
+        ]
+    },
+    {
+        "id": "9e7ac794db06658b",
+        "type": "inject",
+        "z": "a7bcc23fa1082baf",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 2680,
+        "y": 2160,
+        "wires": [
+            [
+                "908adf0b0a8f1cf5"
+            ]
+        ]
+    },
+    {
+        "id": "463c6f1362984e12",
+        "type": "trigger",
+        "z": "a7bcc23fa1082baf",
+        "name": "",
+        "op1": "",
+        "op2": "0",
+        "op1type": "pay",
+        "op2type": "str",
+        "duration": "-30",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "1",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 3130,
+        "y": 2540,
+        "wires": [
+            [
+                "63ba8e849399d1d7"
+            ]
+        ]
+    },
+    {
+        "id": "63ba8e849399d1d7",
+        "type": "debug",
+        "z": "a7bcc23fa1082baf",
+        "name": "debug 169",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3350,
+        "y": 2540,
+        "wires": []
+    },
+    {
+        "id": "432688867227dc8b",
+        "type": "change",
+        "z": "a7bcc23fa1082baf",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "2",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2900,
+        "y": 2400,
+        "wires": [
+            [
+                "dda2158156aa8d49"
+            ]
+        ]
+    },
+    {
+        "id": "dda2158156aa8d49",
+        "type": "trigger",
+        "z": "a7bcc23fa1082baf",
+        "name": "",
+        "op1": "",
+        "op2": "0",
+        "op1type": "nul",
+        "op2type": "str",
+        "duration": "5",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "1",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 3100,
+        "y": 2400,
+        "wires": [
+            [
+                "3fd2a907c0a30df8"
+            ]
+        ]
+    },
+    {
+        "id": "578f60c32762eded",
+        "type": "function",
+        "z": "a7bcc23fa1082baf",
+        "name": "function 91",
+        "func": "var out = {};\n\nif (\n    msg.payload.sensorID1Data === true &&\n    msg.payload.sensorID2Data === true &&\n    msg.payload.sensorID3Data === true\n) {\n    if (msg.payload.alarm === \"0\") {\n        out[\"alarm\"] = \"0\";\n    } \n    else if (msg.payload.alarm === 1) {\n        out[\"alarm\"] = \"1\";\n    }\n}\n\nelse if(\n    msg.payload.sensorID1Data === false ||\n    msg.payload.sensorID2Data === false ||\n    msg.payload.sensorID3Data === false\n){\n    if (msg.payload.alarm === \"0\"){\n        out[\"alarm\"] = \"2\";\n    }\n    else if (msg.payload.alarm === \"1\"){\n        out[\"alarm\"] = \"1\";\n    }\n}\n\nmsg.payload = out;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2290,
+        "y": 2240,
+        "wires": [
+            [
+                "616d9758ef6d17e9",
+                "5ebdf5b0a23f7b5d"
+            ]
+        ]
+    },
+    {
+        "id": "59b991a89c20d27b",
+        "type": "file in",
+        "z": "a7bcc23fa1082baf",
+        "name": "",
+        "filename": "E:\\Weaverbase\\Project\\btg_SmartFarm_supan(0164)\\Test_Read file_Alarm\\sensorID_1",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 920,
+        "y": 2520,
+        "wires": [
+            [
+                "60819fe1b38f02a7"
+            ]
+        ]
+    },
+    {
+        "id": "60819fe1b38f02a7",
+        "type": "function",
+        "z": "a7bcc23fa1082baf",
+        "name": "function 92",
+        "func": "var jsonData = JSON.parse(msg.payload);\n\n// ดึงข้อมูล SensorID1 จาก object\nvar sensorID1Data = jsonData.sensorsAlarmenable[0].status;\nvar sensorID2Data = jsonData.sensorsAlarmenable[1].status;\nvar sensorID3Data = jsonData.sensorsAlarmenable[2].status;\n\nvar result = {\n\n    sensorID1Data,\n    sensorID2Data,\n    sensorID3Data,\n};\nmsg.payload = result;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1390,
+        "y": 2520,
+        "wires": [
+            [
+                "d7fa19ae252d7fd2",
+                "540be7ee55b255b3"
+            ]
+        ]
+    },
+    {
+        "id": "d7fa19ae252d7fd2",
+        "type": "debug",
+        "z": "a7bcc23fa1082baf",
+        "name": "debug 170",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1630,
+        "y": 2520,
+        "wires": []
+    },
+    {
+        "id": "5ebdf5b0a23f7b5d",
+        "type": "debug",
+        "z": "a7bcc23fa1082baf",
+        "name": "debug 171",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2290,
+        "y": 2200,
+        "wires": []
+    },
+    {
+        "id": "540be7ee55b255b3",
+        "type": "join",
+        "z": "a7bcc23fa1082baf",
+        "name": "",
+        "mode": "custom",
+        "build": "merged",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": true,
+        "timeout": "",
+        "count": "4",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 2010,
+        "y": 2240,
+        "wires": [
+            [
+                "4edb77a39bf575a4",
+                "578f60c32762eded"
+            ]
+        ]
+    },
+    {
+        "id": "4edb77a39bf575a4",
+        "type": "debug",
+        "z": "a7bcc23fa1082baf",
+        "name": "debug 172",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2010,
+        "y": 2200,
+        "wires": []
+    },
+    {
+        "id": "999f5a03cac0374b",
+        "type": "comment",
+        "z": "a7bcc23fa1082baf",
+        "name": "Link to buzzer & mqtt",
+        "info": "",
+        "x": 3340,
+        "y": 2000,
+        "wires": []
+    },
+    {
+        "id": "444c25f7b738c59c",
+        "type": "comment",
+        "z": "a7bcc23fa1082baf",
+        "name": "Link to calling loop",
+        "info": "",
+        "x": 3570,
+        "y": 2540,
+        "wires": []
+    },
+    {
+        "id": "dc54fdc77d4f47ef",
+        "type": "comment",
+        "z": "a7bcc23fa1082baf",
+        "name": "Create file data alarm enable",
+        "info": "",
+        "x": 320,
+        "y": 2600,
+        "wires": []
+    },
+    {
+        "id": "3fd2a907c0a30df8",
+        "type": "function",
+        "z": "a7bcc23fa1082baf",
+        "name": "close after",
+        "func": "return [[msg, { payload: 'close', topic: 'control' }]]",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 3310,
+        "y": 2200,
+        "wires": [
+            [
+                "d77b5cdddc0bc8e6"
+            ]
+        ]
+    },
+    {
+        "id": "d77b5cdddc0bc8e6",
+        "type": "gate",
+        "z": "a7bcc23fa1082baf",
+        "name": "",
+        "controlTopic": "control",
+        "defaultState": "open",
+        "openCmd": "open",
+        "closeCmd": "close",
+        "toggleCmd": "toggle",
+        "defaultCmd": "default",
+        "statusCmd": "status",
+        "persist": false,
+        "storeName": "memoryOnly",
+        "x": 3470,
+        "y": 2220,
+        "wires": [
+            [
+                "724d4c24d3de71eb"
+            ]
+        ]
+    },
+    {
+        "id": "724d4c24d3de71eb",
+        "type": "change",
+        "z": "a7bcc23fa1082baf",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 3700,
+        "y": 2220,
+        "wires": [
+            [
+                "463c6f1362984e12"
+            ]
+        ]
+    },
+    {
+        "id": "fdd8f5540ac28ef7",
+        "type": "function",
+        "z": "a7bcc23fa1082baf",
+        "name": "close after",
+        "func": "return [[msg, { payload: 'open', topic: 'control' }]]",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 3310,
+        "y": 2240,
+        "wires": [
+            [
+                "d77b5cdddc0bc8e6"
+            ]
+        ]
+    },
+    {
+        "id": "b6d5abf31b857ae6",
+        "type": "debug",
+        "z": "a7bcc23fa1082baf",
+        "name": "debug 175",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3310,
+        "y": 2060,
+        "wires": []
+    },
+    {
+        "id": "14adadf831867ee9",
+        "type": "mqtt in",
+        "z": "a7bcc23fa1082baf",
+        "name": "",
+        "topic": "btg/0164",
+        "qos": "1",
+        "datatype": "auto",
+        "broker": "8c7352d4.16715",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 260,
+        "y": 2840,
+        "wires": [
+            [
+                "c421eca39a600cea"
+            ]
+        ]
+    },
+    {
+        "id": "c421eca39a600cea",
+        "type": "json",
+        "z": "a7bcc23fa1082baf",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 410,
+        "y": 2840,
+        "wires": [
+            [
+                "0aec6d3004af97f3",
+                "962ac329335d7f47",
+                "45bf2aeb047030a0",
+                "35f024deb6970a88",
+                "ae9ad6979ebff495",
+                "076728bf9023fc2d",
+                "fc27be48fc8a620e",
+                "df56496c32daa26f"
+            ]
+        ]
+    },
+    {
+        "id": "fc27be48fc8a620e",
+        "type": "function",
+        "z": "a7bcc23fa1082baf",
+        "name": "function 94",
+        "func": "var data = msg.payload;\n\nif (data && data.data && data.data.sensors && data.data.sensors.length > 0) {\n    // ดึงข้อมูล \"alarmEnabled\" ที่ตำแหน่งที่ 0\n    var sensor_1larmEnabled = data.data.sensors[0].alarmEnabled;\n    var sensor_1_id = data.data.sensors[0].sensorId;\n    var sensor_2larmEnabled = data.data.sensors[1].alarmEnabled;\n    var sensor_2_id = data.data.sensors[1].sensorId;\n    var sensor_3larmEnabled = data.data.sensors[2].alarmEnabled;\n    var sensor_3_id = data.data.sensors[2].sensorId;\n\n\n    var result = {\n\n        \"sensorsAlarmenable\": [\n            {\n                \"SensorID1\": sensor_1_id,\n                \"status\": sensor_1larmEnabled,\n            },\n            {\n                \"SensorID2\": sensor_2_id,\n                \"status\": sensor_2larmEnabled,\n            },\n            {\n                \"SensorID3\": sensor_3_id,\n                \"status\": sensor_3larmEnabled,\n            },\n        ],\n    };\n\n    msg.payload = result;\n\n} else {\n    msg.payload = \"Invalid data format\";\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 2900,
+        "wires": [
+            [
+                "19ca181da6183144"
+            ]
+        ]
+    },
+    {
+        "id": "19ca181da6183144",
+        "type": "file",
+        "z": "a7bcc23fa1082baf",
+        "name": "",
+        "filename": "E:\\Weaverbase\\Project\\btg_SmartFarm_supan(0164)\\Test_Read file_Alarm\\sensorID_1",
+        "filenameType": "str",
+        "appendNewline": false,
+        "createDir": true,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1020,
+        "y": 2900,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0d11b2633c277ae0",
+        "type": "debug",
+        "z": "a7bcc23fa1082baf",
+        "name": "debug 174",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 790,
+        "y": 2840,
+        "wires": []
+    },
+    {
+        "id": "8c7352d4.16715",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "203.151.152.87",
+        "port": "3002",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "compatmode": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]
